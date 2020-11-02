@@ -34,9 +34,7 @@ func (r *Request) GetQuery(key string, def ...interface{}) interface{} {
 			return v
 		}
 	}
-	if r.Method == "GET" {
-		r.parseBody()
-	}
+	r.parseBody()
 	if len(r.bodyMap) > 0 {
 		if v, ok := r.bodyMap[key]; ok {
 			return v
@@ -120,9 +118,7 @@ func (r *Request) GetQueryInterfaces(key string, def ...interface{}) []interface
 // in order of priority: query > body.
 func (r *Request) GetQueryMap(kvMap ...map[string]interface{}) map[string]interface{} {
 	r.parseQuery()
-	if r.Method == "GET" {
-		r.parseBody()
-	}
+	r.parseBody()
 	var m map[string]interface{}
 	if len(kvMap) > 0 && kvMap[0] != nil {
 		if len(r.queryMap) == 0 && len(r.bodyMap) == 0 {
